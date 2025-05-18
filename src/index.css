@@ -215,7 +215,7 @@
   text-shadow: 0.1px 0.1px 3px white;
 }
 
-.btn_q {
+.btn_q  {
   display: inline-flex;
   align-items: center;
   justify-content: space-between;
@@ -236,17 +236,41 @@
   overflow: hidden;
   cursor: pointer;
 }
-
-.btn_q:hover {
+.btn_r  {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgb(0, 89, 223);
+  width: 500px;
+  transition: all ease-in 0.2s;
+  margin-top: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 12px rgb(0, 89, 223);
+  box-sizing: border-box;
+  padding: 16px 20px;
+  color: #fff;
+  font-size: 16px;
+  text-shadow: 0.1px 0.1px 3px white;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  overflow: hidden;
+  cursor: pointer;
+}
+.btn_q:hover , .btn_r:hover {
   opacity: 0.95;
   transform: scale(1.02);
 }
 
-.btn_q:active {
+.btn_q:active , .btn_r:active {
   transform: scale(0.98);
 }
 
 .btn_q .animation {
+  border-radius: 100%;
+  animation: ripple 0.6s linear infinite;
+}
+.btn_r .animation {
   border-radius: 100%;
   animation: ripple 0.6s linear infinite;
 }
@@ -345,6 +369,12 @@ input[type="radio"]:checked+label.check svg polyline {
   stroke-dashoffset: 42;
 }
 
+@media screen and (max-width:530px) {
+ .btn_r{
+    width: 378px;
+  } 
+}
+
 @media screen and (max-width: 380px) {
   .card {
     width: 95%;
@@ -352,5 +382,8 @@ input[type="radio"]:checked+label.check svg polyline {
 
   .btn_q {
     width: 80%;
+  }
+  .btn_r{
+    width: 300px;
   }
 }

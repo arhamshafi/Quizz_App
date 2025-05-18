@@ -43,16 +43,17 @@ function Questions_page() {
             </div>
         );
     }
-    // console.log(questionsData);
+    console.log(questionsData);
 
     return (
-        <div className="w-full h-screen relative py-3 bg-white flex flex-col overflow-y-auto">
-            <h1 className="font-bold text-3xl text-black mt-8 tracking-[2px] text-center relative context tshbl">
-                <span className="text-blue-500 tshb">Answer</span> The Following <span className="text-blue-500 tshb">Question</span>
-            </h1>
+        <div className='w-full h-max '>
+            <div className="w-full h-screen relative py-3 bg-white flex flex-col overflow-y-auto">
+                <h1 className="font-bold text-3xl text-black mt-8 tracking-[2px] text-center relative context tshbl">
+                    <span className="text-blue-500 tshb">Answer</span> The Following <span className="text-blue-500 tshb">Question</span>
+                </h1>
 
-            <div className="w-full mt-8">
-                {questionsData.map((ele, q_idx) => {
+                <div className="w-full mt-8">
+                    {questionsData.map((ele, q_idx) => {
                     const all_answers = shuffledAnswers[q_idx];
 
                     return (
@@ -109,6 +110,12 @@ function Questions_page() {
                         </div>
                     );
                 })}
+                </div>
+                <div className='w-max mx-auto'>
+                    <button className="btn_r"
+                    ><i className="animation"></i>Show Result<i className="animation"></i>
+                    </button>
+                </div>
             </div>
         </div>
     );

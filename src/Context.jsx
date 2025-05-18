@@ -10,6 +10,8 @@ function Context({ children }) {
     let [loader, setloader] = useState(false);
     let [questionsData, setQuestionsData] = useState(null);
     const [answers, setAnswers] = useState({});
+    console.log(answers);
+    
 
     let Main_fetch = async () => {
         try {
