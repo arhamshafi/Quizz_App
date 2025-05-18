@@ -3,10 +3,12 @@ import { appcontext } from './Context';
 import ScreenLoader from './ScreenLoader';
 import Question_anime from "./Question_anime";
 import Quest_dot from './Ques_dot';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 function Questions_page() {
     const { questionsData, answers, setAnswers } = useContext(appcontext);
     const [shuffledAnswers, setShuffledAnswers] = useState([]);
+     const navigate = useNavigate();
 
     function shuffleArray(array) {
         const newArray = [...array];
@@ -112,7 +114,7 @@ function Questions_page() {
                 })}
                 </div>
                 <div className='w-max mx-auto'>
-                    <button className="btn_r"
+                    <button className="btn_r" onClick={()=> navigate("/Result")}
                     ><i className="animation"></i>Show Result<i className="animation"></i>
                     </button>
                 </div>
