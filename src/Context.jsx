@@ -1,4 +1,6 @@
 import React, { createContext, useState, useEffect } from "react";
+import { useNavigate } from 'react-router-dom';
+
 
 export let appcontext = createContext();
 
@@ -9,9 +11,10 @@ function Context({ children }) {
     let [question_num, setquestion_num] = useState("");
     let [loader, setloader] = useState(false);
     let [questionsData, setQuestionsData] = useState(null);
-    const [answers, setAnswers] = useState({});
-    console.log(answers);
-    
+    let [answers, setAnswers] = useState({});
+    let [count, setcount] = useState(null)
+    let navigate = useNavigate();
+
 
     let Main_fetch = async () => {
         try {
@@ -34,7 +37,7 @@ function Context({ children }) {
             );
             let data = await response.json();
             setQuestionsData(data.results);
-            setAnswers(Array(data.results.length).fill("") )
+            setAnswers(Array(data.results.length).fill(""))
 
         } catch {
             console.log("2nd API is not working");
@@ -54,6 +57,23 @@ function Context({ children }) {
         setquestion_num("");
     };
 
+    function results() {
+        let counter = 0
+        answers.forEach((ele, idx) => {
+            if (ele === questionsData[idx].correct_answer) {
+                counter++
+            }
+        })
+        setcount(counter)
+        navigate("/Result")
+    }
+    function reset(){
+        setAnswers([])
+        setcount(null)
+        navigate("/")
+        
+    }
+
 
 
     return (
@@ -71,7 +91,10 @@ function Context({ children }) {
                 questionsData,
                 setQuestionsData,
                 answers,
-                setAnswers
+                setAnswers,
+                results,
+                count,
+                reset
             }}
         >
             {children}

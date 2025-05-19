@@ -3,12 +3,11 @@ import { appcontext } from './Context';
 import ScreenLoader from './ScreenLoader';
 import Question_anime from "./Question_anime";
 import Quest_dot from './Ques_dot';
-import { Navigate, useNavigate } from 'react-router-dom';
 
 function Questions_page() {
-    const { questionsData, answers, setAnswers } = useContext(appcontext);
+    const { questionsData, answers, setAnswers, results } = useContext(appcontext);
     const [shuffledAnswers, setShuffledAnswers] = useState([]);
-     const navigate = useNavigate();
+
 
     function shuffleArray(array) {
         const newArray = [...array];
@@ -45,7 +44,7 @@ function Questions_page() {
             </div>
         );
     }
-    console.log(questionsData);
+    // console.log(questionsData ? questionsData : null);
 
     return (
         <div className='w-full h-max '>
@@ -56,65 +55,66 @@ function Questions_page() {
 
                 <div className="w-full mt-8">
                     {questionsData.map((ele, q_idx) => {
-                    const all_answers = shuffledAnswers[q_idx];
+                        const all_answers = shuffledAnswers[q_idx];
 
-                    return (
-                        <div
-                            key={q_idx}
-                            className="rounded-2xl bxshb w-[90%] h-[250px] bg-black mx-auto mt-4"
-                        >
-                            <div className="w-full h-full flex justify-evenly items-center relative overflow-hidden">
-                                <Question_anime style={{ transform: "scale(5)" }} />
+                        return (
+                            <div
+                                key={q_idx}
+                                className="rounded-2xl bxshb w-[90%] h-[280px] md:h-[250px] bg-black mx-auto mt-4"
+                            >
+                                <div className="w-full h-full flex justify-evenly items-center relative overflow-hidden">
+                                    <Question_anime style={{ transform: "scale(5)" }} />
 
-                                <div className="w-full h-full absolute p-5 z-10">
-                                    <div className="text-white font-bold text-lg tracking-[1px] mt-2 flex items-center gap-2 tshw">
-                                        <Quest_dot /> {ele.question}
-                                    </div>
+                                    <div className="w-full h-full absolute p-5 z-10">
+                                        <div className="text-white font-bold text-sm md:text-lg tracking-[1px] mt-2 flex items-center gap-2 tshw">
+                                            <div className='w-max hidden sm:block'><Quest_dot /></div>
+                                            {ele.question}
+                                        </div>
 
-                                    <div className="mt-6">
-                                        {all_answers.map((option, slct_answer) => {
-                                            return (
-                                                <div key={slct_answer} className="w-full mt-3">
-                                                    <div className="flex items-center gap-3">
-                                                        <input
-                                                            type="radio"
-                                                            id={`q${q_idx}-opt${slct_answer}`}
-                                                            name={`question-${q_idx}`}
-                                                            value={option}
-                                                            checked={answers[q_idx] === option}
-                                                            onChange={() => handle(q_idx, option)}
-                                                            style={{ display: "none" }}
-                                                        />
+                                        <div className="mt-6">
+                                            {all_answers.map((option, slct_answer) => {
+                                                return (
+                                                    <div key={slct_answer} className="w-full mt-3">
+                                                        <div className="flex items-center gap-3">
+                                                            <input
+                                                                type="radio"
+                                                                id={`q${q_idx}-opt${slct_answer}`}
+                                                                name={`question-${q_idx}`}
+                                                                value={option}
+                                                                checked={answers[q_idx] === option}
+                                                                onChange={() => handle(q_idx, option)}
+                                                                style={{ display: "none" }}
+                                                            />
 
-                                                        <label
-                                                            htmlFor={`q${q_idx}-opt${slct_answer}`}
-                                                            className="check cursor-pointer"
-                                                        >
-                                                            <svg width="18px" height="18px" viewBox="0 0 18 18">
-                                                                <path d="M 1 9 L 1 9 c 0 -5 3 -8 8 -8 L 9 1 C 14 1 17 5 17 9 L 17 9 c 0 4 -4 8 -8 8 L 9 17 C 5 17 1 14 1 9 L 1 9 Z" />
-                                                                <polyline points="1 9 7 14 15 4" />
-                                                            </svg>
-                                                        </label>
+                                                            <label
+                                                                htmlFor={`q${q_idx}-opt${slct_answer}`}
+                                                                className="check cursor-pointer"
+                                                            >
+                                                                <svg width="18px" height="18px" viewBox="0 0 18 18">
+                                                                    <path d="M 1 9 L 1 9 c 0 -5 3 -8 8 -8 L 9 1 C 14 1 17 5 17 9 L 17 9 c 0 4 -4 8 -8 8 L 9 17 C 5 17 1 14 1 9 L 1 9 Z" />
+                                                                    <polyline points="1 9 7 14 15 4" />
+                                                                </svg>
+                                                            </label>
 
-                                                        <label
-                                                            htmlFor={`q${q_idx}-opt${slct_answer}`}
-                                                            className="text-white text-sm tracking-[0.5px] cursor-pointer tshw"
-                                                        >
-                                                            {option}
-                                                        </label>
+                                                            <label
+                                                                htmlFor={`q${q_idx}-opt${slct_answer}`}
+                                                                className="text-white text-sm tracking-[0.5px] cursor-pointer tshw"
+                                                            >
+                                                                {option}
+                                                            </label>
+                                                        </div>
                                                     </div>
-                                                </div>
-                                            );
-                                        })}
+                                                );
+                                            })}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    );
-                })}
+                        );
+                    })}
                 </div>
                 <div className='w-max mx-auto'>
-                    <button className="btn_r" onClick={()=> navigate("/Result")}
+                    <button className="btn_r" onClick={results}
                     ><i className="animation"></i>Show Result<i className="animation"></i>
                     </button>
                 </div>

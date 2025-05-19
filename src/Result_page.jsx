@@ -1,28 +1,37 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { appcontext } from './Context'
 import Pencil from './Pencil_loader'
 
 function Result_page() {
-    let { answer , questionsData } = appcontext
+  let { answers, questionsData, count , reset } = useContext(appcontext)
+  // console.log(questionsData);
+
   return (
-    <div className='w-full h-max py-3 '>
-        <h1 className='text-blue-500 font-bold text-center mt-8 text-3xl context tshb tracking-[3px]'>Result <span className='text-black tshbl'>Page</span></h1>
+    <div className='w-full h-max py-3 pb-8 '>
+      <h1 className='text-blue-500 font-bold text-center mt-8 text-3xl context tshb tracking-[3px]'>Result <span className='text-black tshbl'>Page</span></h1>
+      <div className='w-[90%] py-4 mt-12 mx-auto'>
+        {
+           questionsData && questionsData.map((ele, idx) => {
 
-            <div className='w-[90%] py-4 border mt-12 mx-auto'>
+            return (
+              <div key={idx} className='mt-4 relative'>
+                <div className='w-max mx-auto absolute top-[38%] right-[0] sm:right-[10%] '> <Pencil /> </div>
+                <h1 className='text-black font-bold context text-md sm:text-xl '>Q{idx + 1} : {ele.question}`</h1>
+                <p className='text-black text-md context mt-4 text-sm sm:text-lg'>Correct_Answer : <span className='text-green-600 font-bold'>{ele.correct_answer}</span> </p>
+                <p className='text-black text-md mt-4 context text-sm sm:text-lg'>Selected By User : <span className='text-blue-500 font-bold'>{answers[idx]}</span> </p>
+                <div className='w-[90%] h-[1px] bg-gray-400 mx-auto mt-12 rounded-[3px]'></div>
+              </div>
+            )
+          })
+        }
 
-                <div className='w-max mx-auto'> <Pencil/> </div>
-                <h1 className='text-black font-bold text-lg context'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquam asperiores necessitatibus, saepe animi officiis voluptatum temporibus vero quas ipsam inventore?</h1>
-                <p className='text-black text-md context mt-4'>Correct_Answer : <span className='text-green-600 font-bold'>kjbekfjb</span> </p>
-                <p className='text-black text-md mt-4 context'>Selected By User : <span className='text-blue-500 font-bold'>dwedjlj</span> </p>
-                
-            
+      </div>
 
-            </div>
-
-             <h2 className='text-black text-xl mt-5 text-center context'>Total Correct Answers: <span className='text-blue-600 font-bold'>23 out of 40</span> </h2>
-             <div className='w-max mx-auto mt-8'>
-             <button className='border py-2 px-3 rounded transition-all cursor-pointer duration-150 ease-in hover:bg-black hover:text-white'>Wanna Try Again..?</button>
-                </div>
+      <h2 className='text-black text-xl mt-5 text-center context'>Total Correct Answers: <span className='text-blue-600 font-bold'>{count}</span> </h2>
+      <div className='w-max mx-auto mt-8'>
+        <button className="btn_r" onClick={reset}
+        ><i className="animation"></i>Wanna Try Again...??<i className="animation"></i>
+        </button></div>
     </div>
   )
 }
