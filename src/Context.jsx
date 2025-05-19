@@ -13,6 +13,9 @@ function Context({ children }) {
     let [questionsData, setQuestionsData] = useState(null);
     let [answers, setAnswers] = useState({});
     let [count, setcount] = useState(null)
+    let [inp_disable , setinp_disable] = useState(false)
+    console.log(inp_disable);
+    
     let navigate = useNavigate();
 
 
@@ -63,19 +66,18 @@ function Context({ children }) {
             if (ele === questionsData[idx].correct_answer) {
                 counter++
             }
+
         })
         setcount(counter)
+        setinp_disable(true)
         navigate("/Result")
     }
     function reset(){
         setAnswers([])
         setcount(null)
         navigate("/")
-        
+        setinp_disable(false)
     }
-
-
-
     return (
         <appcontext.Provider
             value={{
@@ -94,8 +96,9 @@ function Context({ children }) {
                 setAnswers,
                 results,
                 count,
-                reset
-            }}
+                reset,
+                inp_disable
+            }}  
         >
             {children}
         </appcontext.Provider>

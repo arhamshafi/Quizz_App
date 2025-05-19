@@ -5,7 +5,7 @@ import Question_anime from "./Question_anime";
 import Quest_dot from './Ques_dot';
 
 function Questions_page() {
-    const { questionsData, answers, setAnswers, results } = useContext(appcontext);
+    const { questionsData, answers, setAnswers, results , inp_disable } = useContext(appcontext);
     const [shuffledAnswers, setShuffledAnswers] = useState([]);
 
 
@@ -13,6 +13,7 @@ function Questions_page() {
         const newArray = [...array];
         for (let i = newArray.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
+            // 
             [newArray[i], newArray[j]] = [newArray[j], newArray[i]];
         }
         return newArray;
@@ -82,6 +83,7 @@ function Questions_page() {
                                                                 name={`question-${q_idx}`}
                                                                 value={option}
                                                                 checked={answers[q_idx] === option}
+                                                                disabled={inp_disable}
                                                                 onChange={() => handle(q_idx, option)}
                                                                 style={{ display: "none" }}
                                                             />
